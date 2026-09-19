@@ -26,6 +26,8 @@ public class Main {
         for(PrintJob job : jobs){
             System.out.println(job.summary());
         }
+
+        inp.close();
     }
 }
 
