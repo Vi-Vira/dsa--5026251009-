@@ -1,7 +1,8 @@
 public class CarWash extends WashService {
-    public CarWash(String id_car, int days_car){
-        super(id_car, days_car);
+    public CarWash(String id_car, int days_car, int units_car){
+        super(id_car, days_car, units_car);
         if (days_car <= 0) throw new IllegalArgumentException("Jumlah hari tidak boleh 0 atau negatif!");
+        if (units_car <= 0) throw new IllegalArgumentException("Jumlah unit tidak boleh 0 atau negatif!");
     }
 
     @Override 

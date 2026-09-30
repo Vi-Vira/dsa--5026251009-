@@ -15,13 +15,13 @@ public class Main {
             String label = inp.next();
             String id = inp.next();
             int days = inp.nextInt();
-            int unit = inp.nextInt();
+            int units = inp.nextInt();
 
             if(label.toUpperCase().equals("MOTORCYCLE")){
-                washes.add(new MotorcycleWash(id, days));
+                washes.add(new MotorcycleWash(id, days, units));
             }
             else if(label.toUpperCase().equals("CAR")){
-                washes.add(new CarWash(id, days));
+                washes.add(new CarWash(id, days, units));
             }
         }
         for(WashService wash : washes){

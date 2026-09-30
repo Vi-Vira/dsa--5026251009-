@@ -1,11 +1,13 @@
 public abstract class WashService implements Billable{
     private String id;
     private int days;
+    private int units;
 
-    protected WashService(String id_wash, int days_wash){
+    protected WashService(String id_wash, int days_wash, int units_wash){
         if (days_wash <= 0) throw new IllegalArgumentException("Jumlah hari tidak boleh 0 atau negatif!");
         this.id = id_wash;
         this.days = days_wash;
+        this.units = units_wash;
     }
 
     public String getId(){
@@ -29,6 +31,6 @@ public abstract class WashService implements Billable{
     }
 
     public String Summary(){
-        return id + " | " + label() + " | " + calculateCharge();
+        return id + " | " + label() + " | " + calculateCharge(units);
     }
 }
