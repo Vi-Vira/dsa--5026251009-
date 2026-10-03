@@ -41,10 +41,10 @@ public class Main{
         String name = order[0];
         String dish = order[1];
         String beverage = order[2];
-        String table = order[0];
+        String table = order[3];
 
-        boolean dish_avail = false;
-        boolean beverage_avail = false;
+        boolean dish_avail = dish.equals("-");
+        boolean beverage_avail = beverage.equals("-");
 
         for(String[] f : food){
             if(f[0].equals(dish)){
@@ -52,13 +52,10 @@ public class Main{
                 if(food_stock >= 1){
                     dish_avail = true;
                 }
-                else if(dish.equals("-")){
-                    dish_avail = true;
-                }
-                else{
-                    break;
-                }
             }
+            // else if(dish.equals("-")){
+            //     dish_avail = true;
+            // }
         }
 
         for(String[] d : drink){
@@ -67,13 +64,10 @@ public class Main{
                 if(drink_stock >= 1){
                     beverage_avail = true;
                 }
-                else if(beverage.equals("-")){
-                    beverage_avail = true;
-                }
-                else{
-                    break;
-                }
             }
+            // else if(beverage.equals("-")){
+            //     beverage_avail = true;
+            // }
         }
 
         if(dish_avail && beverage_avail){
@@ -82,23 +76,25 @@ public class Main{
                 if(f[0].equals(dish)){
                 int food_stock = Integer.parseInt(f[1]);
                 food_stock -= 1;
+                f[1] = String.valueOf(food_stock);
                 }
             }
             for(String[] d : drink){
                 if(d[0].equals(beverage)){
                 int drink_stock = Integer.parseInt(d[1]);
                 drink_stock -= 1;
+                d[1] = String.valueOf(drink_stock);
                 }
             }
         }
 
         else{
-            failed_orders.add(order);
+            failed_orders.push(order);
         }
         
     }
 
-    System.out.println("=== Success Orders ===");
+    System.out.println("=== Successfully Orders ===");
     for (String[] s : success_orders) {
         System.out.println(s[0] + " " + s[1] + " " + s[2] + " " + s[3]);
     }
@@ -110,21 +106,19 @@ public class Main{
             System.out.println(f[0] + " : " + f[1]);
         }
 
-System.out.println();
+    System.out.println();
     
     System.out.println("=== Remaining Drink Stock ===");
         for (String[] d : drink) {
             System.out.println(d[0] + " : " + d[1]);
         }
 
-System.out.println();
+    System.out.println();
 
     System.out.println("=== Failed Orders ===");
-        for (String[] f : failed_orders) {
-            while(!failed_orders.isEmpty()){
-                String[] failed = failed_orders.pop();
-                System.out.println(failed[0] + " " + failed[1] + " " + failed[2] + " " + failed[3]);
-            }
-        }
+    while(!failed_orders.isEmpty()){
+        String[] failed = failed_orders.pop();
+        System.out.println(failed[0] + " " + failed[1] + " " + failed[2] + " " + failed[3]);
+    }
     }
 }
