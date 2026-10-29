@@ -8,17 +8,13 @@ public class Main {
         
         while(regist.hasNext()){
             String nrp = regist.next();
-            if(registrations.contains(nrp)){
-                continue;
-            }
-            else{
-                registrations.add(nrp);
-            }
+            registrations.add(nrp);
         }
 
         Scanner checkin = new Scanner(Main.class.getResourceAsStream("checkins.txt"));
 
-        Map<String, String> count = new LinkedHashMap<>();
+        Set<String> checkins = new LinkedHashSet<>();
+        List<String> checkInList = new ArrayList<>();
 
         int success = 0;
         int rejected = 0;
@@ -27,31 +23,30 @@ public class Main {
 
         while(checkin.hasNext()){
             String nrp = checkin.next();
-            for(String r : registrations){
-                if(nrp.equals(r)){
-                    count.put(nrp, "Checked in");
+                if((!checkins.contains(nrp) && (registrations.contains(nrp)))){
+                    checkins.add(nrp);
+                    checkInList.add(nrp + ": Checked in");
                     success += 1;
                 }
-                else if((nrp.equals(r)) && (count.containsKey(nrp))){
-                    count.put(nrp, "Rejected (already checked in)");
+                else if(checkins.contains(nrp)){
+                    checkInList.add(nrp + ": Rejected (already checked in)");
                     rejected += 1;
                 }
                 else{
-                    count.put(nrp, "Rejected (not registered)");
+                    checkInList.add(nrp + ": Rejected (not registered)");
                     rejected += 1;
                 }
-            }
         }
 
-        for(String c : count.keySet()){
-            System.out.println(c + ": " + count.get(c));
+        for(String c : checkInList){
+            System.out.println(c);
         }
 
         System.out.println();
         System.out.println("===== Final Event Summary =====");
         System.out.println("Registered students: " + registrations.size());
         System.out.println("Succesful check-ins: " + success);
-        System.out.println("Absent students: ");
+        System.out.println("Absent students: " + (registrations.size() - success));
         System.out.println("Rejected attempts: " + rejected);
     }
 }
